@@ -22,7 +22,7 @@ const PostSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'user',
       },
-    }
+    },
   ],
   comments: [
     {
@@ -43,13 +43,13 @@ const PostSchema = new mongoose.Schema({
       date: {
         type: Date,
         default: Date.now,
-      }
-    }
+      },
+    },
   ],
   date: {
     type: Date,
     default: Date.now,
-  }
-})
+  },
+});
 
 module.exports = mongoose.model('post', PostSchema);
