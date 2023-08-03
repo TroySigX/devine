@@ -26,7 +26,7 @@ const Login = ({ login, isAuthenticated }) => {
   }
 
   return (
-    <Fragment>
+    <section className='container'>
       <h1 className='large text-primary'>Sign In</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Sign Into Your Account
@@ -56,7 +56,7 @@ const Login = ({ login, isAuthenticated }) => {
       <p className='my-1'>
         Don't have an account? <Link to='/register'>Register</Link>
       </p>
-    </Fragment>
+    </section>
   );
 };
 
