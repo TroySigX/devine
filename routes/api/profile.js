@@ -1,5 +1,5 @@
 const express = require('express');
-const fetch = require('cross-fetch');
+const axios = require('axios');
 const config = require('config');
 const router = express.Router();
 const auth = require('../../middleware/auth');
@@ -29,7 +29,7 @@ router.get('/me', auth, async (req, res) => {
   }
 });
 
-// @route   POST api/profile/me
+// @route   POST api/profile
 // @desc    Create/update user profile
 // @access  Private
 router.post(
@@ -60,7 +60,6 @@ router.post(
     } = req.body;
 
     const profileFields = {};
-    console.log(profileFields.user);
     if (company) profileFields.company = company;
     if (website) profileFields.website = website;
     if (location) profileFields.location = location;
@@ -131,7 +130,7 @@ router.get('/user/:user_id', async (req, res) => {
 });
 
 // @route   DELETE api/profile
-// @desc    delete profile, user & posts
+// @desc    delete profile & user
 // @access  Private
 router.delete('/', auth, async (req, res) => {
   try {
@@ -157,9 +156,10 @@ router.put(
   auth,
   check('title', 'Title is required').notEmpty(),
   check('company', 'Company is required').notEmpty(),
-  check('from', 'From date is required')
-    .notEmpty()
-    .custom((value, { req }) => (req.body.to ? value < req.body.to : true)),
+  check('from', 'From date is required').notEmpty(),
+  check('from', 'From date needs to be in the past').custom((value, { req }) =>
+    req.body.to ? value < req.body.to : true
+  ),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -290,27 +290,22 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 // @desc    Get user repo from Github
 // @access  Public
 router.get('/github/:username', async (req, res) => {
-  const url = `https://api.github.com/users/${
-    req.params.username
-  }/repos?per_page=5&sort=created:asc&client_id=${config.get(
-    'githubClientId'
-  )}&client_secret=${config.get('githubSecret')}`;
+  try {
+    const uri = encodeURI(
+      `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`
+    );
 
-  fetch(url)
-    .then((response) => {
-      if (response.status !== 200) {
-        throw new Error('No Github profile found');
-      }
+    const headers = {
+      'user-agent': 'node.js',
+      Authorization: `token ${config.get('githubToken')}`,
+    };
 
-      return response.json();
-    })
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.json({ msg: err.message });
-      console.error(err);
-    });
+    const gitHubResponse = await axios.get(uri, { headers });
+    return res.json(gitHubResponse.data);
+  } catch (err) {
+    console.error(err.message);
+    return res.status(404).json({ msg: 'No Github profile found' });
+  }
 });
 
 module.exports = router;
