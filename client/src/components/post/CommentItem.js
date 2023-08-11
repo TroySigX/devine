@@ -1,0 +1,62 @@
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { deleteComment, editComment } from '../../actions/post';
+import { Link } from 'react-router-dom';
+import { formatDate } from '../../utils/formatDate';
+
+const CommentItem = ({
+  postId,
+  comment: { _id, text, name, avatar, user, date },
+  auth,
+  deleteComment,
+  editComment,
+}) => (
+  <div class='post bg-white p-1 my-1'>
+    <div>
+      <Link to={`/profile/${user}`}>
+        <img class='round-img' src={avatar} alt='' />
+        <h4>{name}</h4>
+      </Link>
+    </div>
+    <div>
+      <p class='my-1'>{text}</p>
+      <p class='post-date'>Posted on {formatDate(date)}</p>
+      {!auth.loading && user === auth.user._id && (
+        <Fragment>
+          <button
+            type='button'
+            className='btn btn-light'
+            // onClick={() => editComment(postId, _id)}
+            // TODO: edit comment
+          >
+            Edit
+          </button>
+          <button
+            type='button'
+            className='btn btn-danger'
+            onClick={() => deleteComment(postId, _id)}
+          >
+            <i className='fas fa-times' />
+          </button>
+        </Fragment>
+      )}
+    </div>
+  </div>
+);
+
+CommentItem.propTypes = {
+  postId: PropTypes.string.isRequired,
+  comment: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  deleteComment: PropTypes.func.isRequired,
+  editComment: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { editComment, deleteComment })(
+  CommentItem
+);
