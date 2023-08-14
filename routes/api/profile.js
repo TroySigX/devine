@@ -4,7 +4,7 @@ const config = require('config');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
-const normalize = require('normalize-url');
+const normalizeUrl = require('normalize-url');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
@@ -64,7 +64,7 @@ router.post(
     const profileFields = {};
     if (company) profileFields.company = company;
     if (website)
-      profileFields.website = normalize(website, { forceHttps: true });
+      profileFields.website = normalizeUrl(website, { forceHttps: true });
     if (location) profileFields.location = location;
     if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
@@ -78,7 +78,7 @@ router.post(
     const socialFields = { youtube, twitter, instagram, linkedin, facebook };
     for (const [key, value] of Object.entries(socialFields)) {
       if (value && value.length > 0)
-        socialFields[key] = normalize(value, { forceHttps: true });
+        socialFields[key] = normalizeUrl(value, { forceHttps: true });
     }
     profileFields.social = socialFields;
 
