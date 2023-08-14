@@ -41,7 +41,6 @@ const PostItem = ({
             {likes.length > 0 && <span>{likes.length}</span>}
           </button>
         )}
-        {/* TODO: if singlePost is true, change this button to comment which if pressed, prompt user to comment */}
         {!singlePost && (
           <Link to={`/posts/${_id}`} className='btn btn-primary'>
             Discussion{' '}

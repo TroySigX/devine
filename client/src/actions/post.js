@@ -127,7 +127,7 @@ export const addComment = (postId, formData) => async (dispatch) => {
 export const editComment =
   (postId, commentId, formData) => async (dispatch) => {
     try {
-      const res = await api.post(
+      const res = await api.put(
         `/posts/comment/${postId}/${commentId}`,
         formData
       );
@@ -147,6 +147,9 @@ export const editComment =
   };
 
 export const deleteComment = (postId, commentId) => async (dispatch) => {
+  if (!window.confirm('Delete comment?')) {
+    return;
+  }
   try {
     const res = await api.delete(`/posts/comment/${postId}/${commentId}`);
 

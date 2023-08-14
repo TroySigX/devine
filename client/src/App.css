@@ -7,6 +7,16 @@
   --success-color: #28a745;
 }
 
+.wrapper {
+  border: 1px solid #ccc;
+  padding: 20px;
+  word-wrap: break-word;
+}
+
+#content {
+min-height: 200px;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -77,6 +87,7 @@ img {
 /* Padding */
 .p {
   padding: 0.5rem;
+  word-wrap: break-word;
 }
 .p-1 {
   padding: 1rem;
@@ -162,11 +173,6 @@ img {
 .alert-primary {
   background: var(--primary-color);
   color: #fff;
-}
-
-.btn-liked {
-  background: var(--light-color);
-  color: var(--primary-color);
 }
 
 .btn-light,
