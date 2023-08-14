@@ -131,6 +131,7 @@ dist
 
 # config files
 config/production.json
+config/default.json
 
 # build files
 client/build
