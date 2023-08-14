@@ -1,5 +1,0 @@
-{
-  "mongoURI": "mongodb://127.0.0.1:27017/test",
-  "jwtSecret": "TOPSECRET",
-  "githubToken": "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"
-}
