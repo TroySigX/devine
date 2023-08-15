@@ -1,5 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://thantrongtri3:RJa35LLspr164grW@cluster0.zjy7zug.mongodb.net/?retryWrites=true&w=majority",
   "jwtSecret": "TOPSECRET",
   "githubToken": "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"
 }
