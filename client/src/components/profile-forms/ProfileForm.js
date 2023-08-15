@@ -3,6 +3,8 @@ import { Link, useMatch, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
+import api from '../../utils/api';
+import { setAlert } from '../../actions/alert';
 
 const initState = {
   company: '',
@@ -18,6 +20,15 @@ const initState = {
   linkedin: '',
   instagram: '',
 };
+
+async function githubExists(username) {
+  try {
+    await api.get(`/profile/github/${username}`);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
 
 const ProfileForm = ({
   createProfile,
@@ -87,11 +98,17 @@ const ProfileForm = ({
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    createProfile(formData, editing).then(() => {
-      if (!editing) navigate('/dashboard');
-    });
+    const checkGithub = await githubExists(githubusername);
+
+    if (checkGithub) {
+      createProfile(formData, editing).then(() => {
+        if (!editing) navigate('/dashboard');
+      });
+    } else {
+      setAlert('Github user does not exist', 'danger');
+    }
   };
 
   return (
