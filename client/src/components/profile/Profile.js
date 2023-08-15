@@ -36,9 +36,9 @@ const Profile = ({ profile: { profile }, getProfileById, auth }) => {
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
             <div className='profile-exp bg-white p-2'>
-              <h2 className='text-primary'>Experience</h2>
               {profile.experience.length > 0 && (
                 <Fragment>
+                  <h2 className='text-primary'>Experience</h2>
                   {profile.experience.map((experience) => (
                     <ProfileExperience
                       key={experience._id}
@@ -49,6 +49,7 @@ const Profile = ({ profile: { profile }, getProfileById, auth }) => {
               )}
               {profile.education.length > 0 && (
                 <Fragment>
+                  <h2 className='text-primary'>Education</h2>
                   {profile.education.map((education) => (
                     <ProfileEducation
                       key={education._id}
