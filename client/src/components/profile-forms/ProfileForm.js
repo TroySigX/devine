@@ -100,9 +100,7 @@ const ProfileForm = ({
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const checkGithub = await githubExists(githubusername);
-
-    if (checkGithub) {
+    if (!githubusername || (await githubExists(githubusername))) {
       createProfile(formData, editing).then(() => {
         if (!editing) navigate('/dashboard');
       });
