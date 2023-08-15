@@ -8,6 +8,7 @@ import {
   CLEAR_PROFILE,
   ACCOUNT_DELETE,
   GET_REPOS,
+  NO_REPOS,
 } from './types';
 
 /** Get user current profile */
@@ -74,7 +75,7 @@ export const getGithubRepos = (username) => async (dispatch) => {
     });
   } catch (err) {
     dispatch({
-      type: PROFILE_ERROR,
+      type: NO_REPOS,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
