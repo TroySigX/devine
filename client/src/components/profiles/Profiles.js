@@ -19,7 +19,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
           <h1 className='large text-primary'>Developers</h1>
           <p className='lead'>
             <i className='fab fa-connectdevelop' />
-            Browses and connect with devs
+            Browse and connect with devs
           </p>
           <div className='profiles'>
             {profiles.length > 0 ? (
