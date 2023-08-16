@@ -49,7 +49,7 @@ const ProfileForm = ({
 
     if (!loading) {
       // profile exists, editing profile
-      if (profile) {
+      if (profile.created) {
         // if current link is create-profile, redirect to edit-profile
         if (!editing) {
           navigate('/edit-profile');
