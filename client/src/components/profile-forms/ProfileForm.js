@@ -226,7 +226,7 @@ const ProfileForm = ({
               <i className='fab fa-twitter fa-2x'></i>
               <input
                 type='text'
-                placeholder='twitter URL'
+                placeholder='Twitter URL'
                 name='twitter'
                 value={twitter}
                 onChange={onChange}
@@ -259,7 +259,7 @@ const ProfileForm = ({
               <i className='fab fa-linkedin fa-2x'></i>
               <input
                 type='text'
-                placeholder='Linkedin URL'
+                placeholder='LinkedIn URL'
                 name='linkedin'
                 value={linkedin}
                 onChange={onChange}
