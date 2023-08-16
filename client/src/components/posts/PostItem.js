@@ -23,24 +23,14 @@ const PostItem = ({
       <div>
         <p className='my-1'>{text}</p>
         <p className='post-date'>Posted on {formatDate(date)}</p>
-        {likes.filter((like) => like.user === auth.user._id).length > 0 ? (
-          <button
-            type='button'
-            onClick={() => toggleLike(_id)}
-            className='btn btn-liked'
-          >
-            <i className='fas fa-thumbs-up' /> <span>{likes.length}</span>
-          </button>
-        ) : (
-          <button
-            type='button'
-            onClick={() => toggleLike(_id)}
-            className='btn btn-light'
-          >
-            <i className='fas fa-thumbs-up' />{' '}
-            {likes.length > 0 && <span>{likes.length}</span>}
-          </button>
-        )}
+        <button
+          type='button'
+          onClick={() => toggleLike(_id)}
+          className='btn btn-light'
+        >
+          <i className='fas fa-thumbs-up' />{' '}
+          {likes.length > 0 && <span>{likes.length}</span>}
+        </button>
         {!singlePost && (
           <Link to={`/posts/${_id}`} className='btn btn-primary'>
             Discussion{' '}
