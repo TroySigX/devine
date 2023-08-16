@@ -6,6 +6,10 @@ const ProfileSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: 'user',
   },
+  created: {
+    type: Boolean,
+    default: false,
+  },
   company: {
     type: String,
   },
@@ -104,10 +108,6 @@ const ProfileSchema = Schema({
     instagram: {
       type: String,
     },
-  },
-  date: {
-    type: Date,
-    default: Date.now,
   },
 });
 

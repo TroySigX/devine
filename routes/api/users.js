@@ -8,6 +8,7 @@ const config = require('../../config/variables');
 const normalizeUrl = require('normalize-url');
 
 const User = require('../../models/User');
+const Profile = require('../../models/Profile');
 
 // @route   POST api/users/
 // @desc    create new user
@@ -50,7 +51,13 @@ router.post(
         { forceHttps: true }
       );
 
+      // create new user and profile associated with user
       user = new User({ name, email, avatar, password });
+      await Profile.findOneAndUpdate(
+        { user: user.id },
+        { $set: { user: user.id } },
+        { new: true, upsert: true, setDefaultsOnInsert: true }
+      );
 
       // encrypt password
       const salt = await bcrypt.genSalt(10);

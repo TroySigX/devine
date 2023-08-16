@@ -61,7 +61,7 @@ router.post(
       instagram,
     } = req.body;
 
-    const profileFields = {};
+    const profileFields = { created: true };
     if (company) profileFields.company = company;
     if (website)
       profileFields.website = normalizeUrl(website, { forceHttps: true });
