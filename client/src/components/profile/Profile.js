@@ -10,7 +10,7 @@ import ProfileExperience from './ProfileExperience';
 import ProfileEducation from './ProfileEducation';
 import ProfileGithub from './ProfileGithub';
 
-const Profile = ({ profile: { profile, loading }, getProfileById, auth }) => {
+const Profile = ({ profile: { profile }, getProfileById, auth }) => {
   const { id } = useParams();
   useEffect(() => {
     getProfileById(id);
@@ -18,7 +18,7 @@ const Profile = ({ profile: { profile, loading }, getProfileById, auth }) => {
 
   return (
     <section className='container'>
-      {loading ? (
+      {profile === null ? (
         <Spinner />
       ) : (
         <Fragment>
