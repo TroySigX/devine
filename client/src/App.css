@@ -87,7 +87,6 @@ img {
 /* Padding */
 .p {
   padding: 0.5rem;
-  word-wrap: break-word;
 }
 .p-1 {
   padding: 1rem;
@@ -126,15 +125,27 @@ img {
 }
 .my {
   margin: 0.5rem 0;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 .my-1 {
   margin: 1rem 0;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 .my-2 {
   margin: 2rem 0;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 .my-3 {
   margin: 3rem 0;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .btn {
