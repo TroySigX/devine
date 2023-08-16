@@ -35,6 +35,12 @@ export const getProfiles = () => async (dispatch) => {
   try {
     const res = await api.get('/profile');
 
+    // prioritize profiles which are created
+    res.data.sort(
+      (profile1, profile2) =>
+        Number(profile2.created) - Number(profile1.created)
+    );
+
     dispatch({
       type: GET_PROFILES,
       payload: res.data,
