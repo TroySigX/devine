@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const Dashboard = ({
   getCurrentProfile,
   auth: { user },
-  profile: { profile },
+  profile: { profile, loading },
   deleteAccount,
 }) => {
   useEffect(() => {
@@ -23,7 +23,7 @@ const Dashboard = ({
       <p className='lead'>
         <i className='fas fa-user' /> Welcome {user && user.name}
       </p>
-      {profile.created ? (
+      {!loading && profile.created ? (
         <Fragment>
           <DashboardActions />
           {profile.experience.length > 0 && (
