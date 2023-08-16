@@ -23,7 +23,7 @@ const Dashboard = ({
       <p className='lead'>
         <i className='fas fa-user' /> Welcome {user && user.name}
       </p>
-      {profile ? (
+      {profile.created ? (
         <Fragment>
           <DashboardActions />
           {profile.experience.length > 0 && (
