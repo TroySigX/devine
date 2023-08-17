@@ -9,8 +9,8 @@ A social media aims to connect developers
 - Integration with other social media platforms (GitHub, LinkedIn, etc.)
 
 ## Screenshots
-![image](https://github.com/TroySigX/devine/assets/88051085/73e82f7f-c49d-4e47-b58c-1ce2a11ed178)
-![image](https://github.com/TroySigX/devine/assets/88051085/f576a152-f784-4903-9cc6-cac5218b03ec)
+![image](https://github.com/TroySigX/devine/assets/88051085/412852e4-46b5-4e84-b4ba-e6d6fba87eb5)
+![image](https://github.com/TroySigX/devine/assets/88051085/a8ce9f28-6730-41ae-a4cc-cf065f136139)
 
 ## Special thanks
 [@bradtraversy](https://github.com/bradtraversy) - My instructor
