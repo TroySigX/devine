@@ -23,7 +23,8 @@ const initState = {
 
 async function githubExists(username) {
   try {
-    await api.get(`/profile/github/${username}`);
+    const res = await api.get(`/profile/github/${username}`);
+    res.data.toSorted();
     return true;
   } catch (err) {
     return false;
@@ -33,6 +34,7 @@ async function githubExists(username) {
 const ProfileForm = ({
   createProfile,
   getCurrentProfile,
+  setAlert,
   profile: { profile, loading },
 }) => {
   const [formData, setFormData] = useState(initState);
@@ -293,12 +295,15 @@ ProfileForm.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
+  setAlert: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-  ProfileForm
-);
+export default connect(mapStateToProps, {
+  createProfile,
+  getCurrentProfile,
+  setAlert,
+})(ProfileForm);
