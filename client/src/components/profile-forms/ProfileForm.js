@@ -35,7 +35,7 @@ const ProfileForm = ({
   createProfile,
   getCurrentProfile,
   setAlert,
-  profile: { profile, loading },
+  profile: { profile },
 }) => {
   const [formData, setFormData] = useState(initState);
 
@@ -49,7 +49,7 @@ const ProfileForm = ({
     // load user profile
     if (!profile) getCurrentProfile();
 
-    if (!loading) {
+    if (profile) {
       // profile exists, editing profile
       if (profile.created) {
         // if current link is create-profile, redirect to edit-profile
@@ -80,7 +80,7 @@ const ProfileForm = ({
         }
       }
     }
-  }, [loading, getCurrentProfile, profile]);
+  }, [getCurrentProfile, profile]);
 
   const {
     company,
