@@ -37,33 +37,37 @@ const Profile = ({ profile: { profile }, getProfileById, auth }) => {
             {profile.created && (
               <Fragment>
                 <ProfileAbout profile={profile} />
-                <div className='profile-exp bg-white p-2'>
-                  {profile.experience.length > 0 && (
-                    <Fragment>
-                      <h2 className='text-primary'>Experience</h2>
-                      {profile.experience.map((experience) => (
-                        <ProfileExperience
-                          key={experience._id}
-                          experience={experience}
-                        />
-                      ))}
-                    </Fragment>
-                  )}
-                  {profile.education.length > 0 && (
-                    <Fragment>
-                      <h2 className='text-primary'>Education</h2>
-                      {profile.education.map((education) => (
-                        <ProfileEducation
-                          key={education._id}
-                          education={education}
-                        />
-                      ))}
-                    </Fragment>
-                  )}
-                  {profile.githubusername && (
-                    <ProfileGithub username={profile.githubusername} />
-                  )}
-                </div>
+                {profile.experience.length + profile.education.length > 0 && (
+                  <Fragment>
+                    <div className='profile-exp bg-white p-2'>
+                      {profile.experience.length > 0 && (
+                        <Fragment>
+                          <h2 className='text-primary'>Experience</h2>
+                          {profile.experience.map((experience) => (
+                            <ProfileExperience
+                              key={experience._id}
+                              experience={experience}
+                            />
+                          ))}
+                        </Fragment>
+                      )}
+                      {profile.education.length > 0 && (
+                        <Fragment>
+                          <h2 className='text-primary'>Education</h2>
+                          {profile.education.map((education) => (
+                            <ProfileEducation
+                              key={education._id}
+                              education={education}
+                            />
+                          ))}
+                        </Fragment>
+                      )}
+                      {profile.githubusername && (
+                        <ProfileGithub username={profile.githubusername} />
+                      )}
+                    </div>
+                  </Fragment>
+                )}
               </Fragment>
             )}
           </div>
