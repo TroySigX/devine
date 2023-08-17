@@ -29,7 +29,7 @@ export const getCurrentProfile = () => async (dispatch) => {
 };
 
 // Get all profiles
-export const getProfiles = () => async (dispatch) => {
+export const getProfiles = (user) => async (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
 
   try {
@@ -40,6 +40,15 @@ export const getProfiles = () => async (dispatch) => {
       (profile1, profile2) =>
         Number(profile2.created) - Number(profile1.created)
     );
+
+    // if user logged in, prioritize user to top
+    if (user) {
+      const index = res.data.findIndex(
+        (profile) => profile.user._id === user._id
+      );
+      const element = res.data.splice(index, 1)[0];
+      res.data.unshift(element);
+    }
 
     dispatch({
       type: GET_PROFILES,

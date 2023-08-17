@@ -5,9 +5,9 @@ import Spinner from '../layout/Spinner';
 import { getProfiles } from '../../actions/profile';
 import ProfileItem from './ProfileItem';
 
-const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+const Profiles = ({ getProfiles, profile: { profiles, loading }, user }) => {
   useEffect(() => {
-    getProfiles();
+    getProfiles(user);
   }, [getProfiles]);
 
   return (
@@ -39,10 +39,12 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 Profiles.propTypes = {
   profile: PropTypes.object.isRequired,
   getProfiles: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { getProfiles })(Profiles);
