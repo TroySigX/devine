@@ -21,24 +21,6 @@ const initState = {
   instagram: '',
 };
 
-/**
- * if user provides github url, extract username
- */
-function extractGithubUsername(github) {
-  github = github.trim();
-
-  // if user doesn't provide github
-  if (!github) return github;
-
-  const regex = /^((https?:\/\/)?(www\.)?github\.com\/[a-z0-9-]+)$/i;
-  const check = regex.test(github);
-  if (check) {
-    return github.match(/github\.com\/([a-z0-9-]+)/i)[1];
-  }
-
-  return github;
-}
-
 async function githubExists(username) {
   try {
     const res = await api.get(`/profile/github/${username}`);
@@ -115,21 +97,11 @@ const ProfileForm = ({
     instagram,
   } = formData;
 
-  const onChange = (e) => {
-    // extract github username if user provides github url
-    if (e.target.name === 'githubusername') {
-      setFormData({
-        ...formData,
-        [e.target.name]: extractGithubUsername(e.target.value),
-      });
-    } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
-  };
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
     if (!githubusername || (await githubExists(githubusername))) {
       createProfile(formData, editing).then(() => {
         if (!editing) navigate('/dashboard');
