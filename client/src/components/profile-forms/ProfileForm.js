@@ -103,8 +103,8 @@ const ProfileForm = ({
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!githubusername || (await githubExists(githubusername))) {
-      createProfile(formData, editing).then(() => {
-        if (!editing) navigate('/dashboard');
+      createProfile(formData, editing).then((response) => {
+        if (response && !editing) navigate('/dashboard');
       });
     } else {
       setAlert('Github user does not exist', 'danger');
@@ -126,7 +126,7 @@ const ProfileForm = ({
       <form className='form' onSubmit={onSubmit}>
         <div className='form-group'>
           <select name='status' value={status} onChange={onChange}>
-            <option value='0'>* Select Professional Status</option>
+            <option value={null}>* Select Professional Status</option>
             <option value='Developer'>Developer</option>
             <option value='Junior Developer'>Junior Developer</option>
             <option value='Senior Developer'>Senior Developer</option>
