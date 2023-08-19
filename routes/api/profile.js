@@ -10,6 +10,40 @@ const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 const Post = require('../../models/Post');
 
+function extractGithubUsername(github) {
+  github = github.trim();
+
+  // if user doesn't provide github
+  if (!github) return github;
+
+  const regex = /^((https?:\/\/)?(www\.)?github\.com\/[a-z0-9-]+)$/i;
+  const check = regex.test(github);
+  if (check) {
+    return github.match(/github\.com\/([a-z0-9-]+)/i)[1];
+  }
+
+  return github;
+}
+
+const getGithub = async (username) => {
+  try {
+    const uri = encodeURI(
+      `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc`
+    );
+    const headers = {
+      'user-agent': 'node.js',
+      Authorization: `token ${config.get('githubToken')}`,
+    };
+
+    const gitHubResponse = await axios.get(uri, { headers });
+
+    return gitHubResponse.data;
+  } catch (err) {
+    console.error(err.message);
+    return null;
+  }
+};
+
 // @route   GET api/profile/me
 // @desc    Get current user profile
 // @access  Private
@@ -68,7 +102,17 @@ router.post(
     if (location) profileFields.location = location;
     if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
-    if (githubusername) profileFields.githubusername = githubusername;
+    if (githubusername) {
+      const username = extractGithubUsername(githubusername);
+      if (username) {
+        if (!(await getGithub(username))) {
+          return res
+            .status(400)
+            .json({ errors: [{ msg: "Github user doesn't exist" }] });
+        }
+      }
+      profileFields.githubusername = username;
+    }
 
     if (skills) {
       profileFields.skills = skills.split(',').map((skill) => skill.trim());
@@ -297,21 +341,11 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 // @desc    Get user repo from Github
 // @access  Public
 router.get('/github/:username', async (req, res) => {
-  try {
-    const uri = encodeURI(
-      `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`
-    );
-    const headers = {
-      'user-agent': 'node.js',
-      Authorization: `token ${config.get('githubToken')}`,
-    };
+  const github = await getGithub(req.params.username);
 
-    const gitHubResponse = await axios.get(uri, { headers });
-    return res.json(gitHubResponse.data);
-  } catch (err) {
-    console.error(err.message);
-    return res.status(404).json({ msg: 'No Github profile found' });
-  }
+  if (github) return res.json(github);
+
+  return res.status(404).json({ msg: 'No Github profile found' });
 });
 
 module.exports = router;

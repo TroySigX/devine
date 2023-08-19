@@ -102,13 +102,9 @@ const ProfileForm = ({
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!githubusername || (await githubExists(githubusername))) {
-      createProfile(formData, editing).then((response) => {
-        if (response && !editing) navigate('/dashboard');
-      });
-    } else {
-      setAlert('Github user does not exist', 'danger');
-    }
+    createProfile(formData, editing).then((response) => {
+      if (response && !editing) navigate('/dashboard');
+    });
   };
 
   return (
